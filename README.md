@@ -74,6 +74,8 @@ notux-kernel/
     ├── onion.c                    # Kernel entry / init glue
     └── types.h, stdint.h, io.h    # Common definitions
 ```
+<img src="notux.png" alt="notux-kernel screenshot" width="600"/>
+
 
 ### Requirements
 
