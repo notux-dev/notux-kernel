@@ -31,7 +31,7 @@ protected:
     chachafs_inode_t raw_;
 };
 
-class FileInode : public Inode {
+class Finode : public Inode {
 public:
     uint32_t read(void *buf, uint32_t size, uint32_t offset) override {
         if (offset >= raw_.size) {
