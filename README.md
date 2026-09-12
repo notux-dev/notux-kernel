@@ -19,9 +19,6 @@
 
 ---
 
-<a name="english"></a>
-## 🇬🇧 English
-
 ### We all love beavers
 ### MITL total victory
 
