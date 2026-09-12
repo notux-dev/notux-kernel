@@ -1,5 +1,7 @@
 CC = gcc
+CXX = g++
 LD = ld
+ZIG = zig
 
 CFLAGS = -m64 -g -ffreestanding -fno-pie -fno-stack-protector -fno-builtin \
          -nostdlib -nostdinc \
@@ -11,8 +13,15 @@ CFLAGS = -m64 -g -ffreestanding -fno-pie -fno-stack-protector -fno-builtin \
          -Ikernel/IGPU \
          -mno-red-zone
 
-ASFLAGS = -f elf64
+CXXFLAGS = -m64 -g -ffreestanding -fno-pie -fno-stack-protector -fno-builtin \
+           -fno-exceptions -fno-rtti \
+           -nostdlib -nostdinc -nostdinc++ \
+           -Ikernel \
+           -Ikernel/ahci \
+           -Ikernel/chachafs \
+           -mno-red-zone
 
+ASFLAGS = -f elf64
 LDFLAGS = -m elf_x86_64 -T linker.ld
 
 CSRC = $(filter-out kernel/scheduler.c,$(wildcard kernel/*.c))
@@ -23,19 +32,37 @@ FS_CSRC    = $(wildcard kernel/xv6fs/*.c)
 XV6_CSRC   = $(wildcard kernel/Xjail/xv6/*.c)
 IGPU_CSRC  = $(wildcard kernel/IGPU/*.c)
 
-COBJ      = $(CSRC:kernel/%.c=%.o)
+CPPSRC = $(wildcard kernel/chachafs/*.cpp)
+
+ZIGSRC = $(wildcard kernel/*.zig)
+
+COBJ = $(CSRC:kernel/%.c=%.o)
+
 AHCI_OBJ  = $(AHCI_CSRC:kernel/ahci/%.c=%.o)
 LAPIC_OBJ = $(LAPIC_CSRC:kernel/lapic/%.c=%.o)
 FS_OBJ    = $(FS_CSRC:kernel/xv6fs/%.c=%.o)
 XV6_OBJ   = $(XV6_CSRC:kernel/Xjail/xv6/%.c=%.o)
 IGPU_OBJ  = $(IGPU_CSRC:kernel/IGPU/%.c=%.o)
 
+CPPOBJ = $(CPPSRC:kernel/chachafs/%.cpp=%.o)
+
+ZIGOBJ = $(ZIGSRC:kernel/%.zig=%.o)
+
 ASM_BOOT_OBJ = boot.o
 
 ASM_KERNEL_SRC = $(wildcard kernel/*.asm)
 ASM_KERNEL_OBJ = $(ASM_KERNEL_SRC:kernel/%.asm=%.o)
 
-OBJ = $(ASM_BOOT_OBJ) $(COBJ) $(AHCI_OBJ) $(LAPIC_OBJ) $(FS_OBJ) $(XV6_OBJ) $(IGPU_OBJ) $(ASM_KERNEL_OBJ)
+OBJ = $(ASM_BOOT_OBJ) \
+      $(COBJ) \
+      $(ZIGOBJ) \
+      $(CPPOBJ) \
+      $(AHCI_OBJ) \
+      $(LAPIC_OBJ) \
+      $(FS_OBJ) \
+      $(XV6_OBJ) \
+      $(IGPU_OBJ) \
+      $(ASM_KERNEL_OBJ)
 
 all: notux.iso
 
@@ -60,6 +87,18 @@ fs.o: kernel/xv6fs/fs.c
 %.o: kernel/IGPU/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+%.o: kernel/chachafs/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+%.o: kernel/%.zig
+	$(ZIG) build-obj $< \
+		-target x86_64-freestanding \
+		-O ReleaseSmall \
+		-fno-stack-check \
+		-fno-unwind-tables \
+		-fno-PIE \
+		-femit-bin=$@
+
 boot.o: boot/boot.asm
 	nasm $(ASFLAGS) boot/boot.asm -o boot.o
 
@@ -71,18 +110,19 @@ notux.bin: $(OBJ)
 
 notux.iso: notux.bin user.elf fs.img
 	mkdir -p iso/boot/grub
+
 	cp notux.bin iso/boot/kernel.bin
 	cp user.elf iso/boot/user.elf
 	cp fs.img iso/boot/fs.img
 
-	@echo 'set timeout=0' > iso/boot/grub/grub.cfg
-	@echo 'set default=0' >> iso/boot/grub/grub.cfg
-	@echo 'menuentry "notux" {' >> iso/boot/grub/grub.cfg
-	@echo '    multiboot /boot/kernel.bin' >> iso/boot/grub/grub.cfg
-	@echo '    module /boot/user.elf' >> iso/boot/grub/grub.cfg
-	@echo '    module /boot/fs.img' >> iso/boot/grub/grub.cfg
-	@echo '    boot' >> iso/boot/grub/grub.cfg
-	@echo '}' >> iso/boot/grub/grub.cfg
+	echo 'set timeout=0' > iso/boot/grub/grub.cfg
+	echo 'set default=0' >> iso/boot/grub/grub.cfg
+	echo 'menuentry "notux" {' >> iso/boot/grub/grub.cfg
+	echo '    multiboot /boot/kernel.bin' >> iso/boot/grub/grub.cfg
+	echo '    module /boot/user.elf' >> iso/boot/grub/grub.cfg
+	echo '    module /boot/fs.img' >> iso/boot/grub/grub.cfg
+	echo '    boot' >> iso/boot/grub/grub.cfg
+	echo '}' >> iso/boot/grub/grub.cfg
 
 	grub-mkrescue -o notux.iso iso
 
@@ -100,6 +140,7 @@ notsh.elf: notsh.c
 	gcc -m64 -ffreestanding -nostdlib -fno-builtin \
 	    -fno-stack-protector -mno-red-zone -fcf-protection=none \
 	    -c notsh.c -o notsh.o
+
 	ld -m elf_x86_64 -nostdlib -e _start \
 	   -Ttext 0x400000 notsh.o -o notsh.elf
 
@@ -110,6 +151,7 @@ user.elf: user.c notsh_bin.h
 	gcc -m64 -ffreestanding -nostdlib -fno-builtin \
 	    -fno-stack-protector -mno-red-zone -fcf-protection=none \
 	    -c user.c -o user.o
+
 	ld -m elf_x86_64 -nostdlib -e _start \
 	   -Ttext 0x300000 user.o -o user.elf
 
