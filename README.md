@@ -13,8 +13,6 @@
 [![Arch: x86_64](https://img.shields.io/badge/arch-x86__64-lightgrey.svg)](#)
 [![Status: WIP](https://img.shields.io/badge/status-work--in--progress-red.svg)](#)
 
-[English](#english) • [Русский](#русский)
-
 </div>
 
 ---
