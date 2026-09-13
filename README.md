@@ -17,9 +17,7 @@
 
 ---
 
-### We all love beavers
-### MITL total victory
-
+### We all love beavers.
 ### About
 
 **notux-kernel** is a solo-developer, clean-room, 64-bit kernel inspired by Linux but built without any GPL-licensed code. It's an educational/experimental project — **not intended for production use** — exploring what it takes to build a kernel capable of natively running Linux-style applications, complete with its own filesystem stack and a "token" root system.
