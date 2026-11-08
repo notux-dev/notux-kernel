@@ -1,0 +1,70 @@
+# sbase rung-4 check, run by mksh: sbase utilities over a tree on the ext2 disk (/mnt).
+# Prints "sbase: <name> ok|FAIL"; exit status = number of failures.
+PATH=/mnt/bin:/bin
+bad=0
+chk() {   # chk NAME EXPECTED ACTUAL
+    if [ "$2" = "$3" ]; then echo "sbase: $1 ok"; else echo "sbase: $1 FAIL (want '$2' got '$3')"; bad=$((bad+1)); fi
+}
+W=/mnt/sbt
+rm -rf $W; mkdir -p $W/a/b/c
+chk mkdir-p "$(ls $W/a/b)" "c"
+echo "hello world" > $W/h.txt
+printf 'b\na\nc\na\n' > $W/l.txt
+chk cat "$(cat $W/h.txt)" "hello world"
+chk wc "$(wc -l < $W/l.txt | tr -d ' ')" "4"
+chk sort "$(sort $W/l.txt | tr '\n' ' ')" "a a b c "
+chk sort-u "$(sort -u $W/l.txt | tr '\n' ' ')" "a b c "
+chk uniq "$(sort $W/l.txt | uniq -c | head -n1 | tr -s ' ' | sed 's/^ //')" "2 a"
+chk head "$(head -n2 $W/l.txt | tr '\n' ' ')" "b a "
+chk tail "$(tail -n1 $W/l.txt)" "a"
+chk tr "$(echo hello | tr a-z A-Z)" "HELLO"
+chk cut "$(echo a:b:c | cut -d: -f2)" "b"
+chk grep "$(grep -c a $W/l.txt)" "2"
+chk grep-v "$(grep -v a $W/l.txt | tr '\n' ' ')" "b c "
+chk sed "$(echo foo bar | sed 's/foo/baz/')" "baz bar"
+chk basename "$(basename /x/y/file.txt .txt)" "file"
+chk dirname "$(dirname /x/y/file.txt)" "/x/y"
+chk seq "$(seq 1 5 | tr '\n' ' ')" "1 2 3 4 5 "
+chk printf "$(printf '%05d' 42)" "00042"
+chk expr-test "$(test -f $W/h.txt && echo yes)" "yes"
+chk test-d "$(test -d $W/a && echo yes)" "yes"
+cp $W/h.txt $W/h2.txt; chk cp "$(cat $W/h2.txt)" "hello world"
+mv $W/h2.txt $W/h3.txt; chk mv "$(ls $W | grep -c h3.txt)" "1"
+chk mv-gone "$(test -e $W/h2.txt && echo still)" ""
+cp -r $W/a $W/a2; chk cp-r "$(ls $W/a2/b)" "c"
+ln -s h.txt $W/sl; chk ln-s "$(readlink $W/sl)" "h.txt"
+chk cat-symlink "$(cat $W/sl)" "hello world"
+ln $W/h.txt $W/hard; chk ln-hard "$(cat $W/hard)" "hello world"
+touch $W/t; chk touch "$(test -e $W/t && echo yes)" "yes"
+chmod 600 $W/t; chk chmod "$(ls -l $W/t | cut -c1-10)" "-rw-------"
+chk find "$(find $W/a -type d | wc -l | tr -d ' ')" "3"
+chk find-name "$(find $W -name 'h*.txt' | wc -l | tr -d ' ')" "2"
+chk du "$(du -s $W/a >/dev/null 2>&1 && echo ok)" "ok"
+echo x | tee $W/tee.txt >/dev/null; chk tee "$(cat $W/tee.txt)" "x"
+chk xargs "$(echo a b c | xargs -n1 echo | wc -l | tr -d ' ')" "3"
+chk od "$(printf 'A' | od -An -tx1 | tr -d ' ')" "41"
+chk cmp "$(cmp $W/h.txt $W/hard && echo same)" "same"
+chk sha256 "$(printf abc | sha256sum | cut -c1-16)" "ba7816bf8f01cfea"
+chk md5 "$(printf abc | md5sum | cut -c1-16)" "900150983cd24fb0"
+chk date "$(date +%Y | cut -c1-2)" "20"
+chk env "$(env FOO=bar printenv FOO)" "bar"
+chk uname "$(uname -s)" "notux"
+chk whoami "$(whoami)" "root"
+chk pwd "$(cd $W && pwd)" "/mnt/sbt"
+chk sleep "$(sleep 0 && echo ok)" "ok"
+chk true "$(true && echo ok)" "ok"
+chk false "$(false || echo ok)" "ok"
+tar -cf $W/x.tar -C $W a 2>/dev/null; chk tar "a" "$(tar -tf $W/x.tar | head -n1 | sed s,/$,,)"
+mkdir $W/ex; tar -xf $W/x.tar -C $W/ex; chk tar-x "$(ls $W/ex/a/b)" "c"
+chk rev "$(echo abc | rev)" "cba"
+chk nl "$(printf 'x\ny\n' | nl | wc -l | tr -d ' ')" "2"
+chk split "$(cd $W && printf '1\n2\n3\n' | split -l 2 - part_ && ls part_* | wc -l | tr -d ' ')" "2"
+chk comm "$(printf 'a\nb\n' > $W/c1; printf 'b\nc\n' > $W/c2; comm -12 $W/c1 $W/c2)" "b"
+chk rmdir "$(rmdir $W/ex 2>&1 | grep -c .)" "1"
+rm -r $W/a2 $W/ex $W/a; chk rm-r "$(ls $W | grep -c '^a')" "0"
+sync; chk sync "$(echo ok)" "ok"
+mkdir -p /tmp/sbt && chk tmp "$(mktemp -d /tmp/sbt/XXXXXX | cut -c1-9)" "/tmp/sbt/"
+rm -rf $W /tmp/sbt
+chk cleanup "$(test -e $W && echo left)" ""
+echo "sbase: done, $bad failed"
+exit $bad

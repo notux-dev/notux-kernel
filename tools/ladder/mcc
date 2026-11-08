@@ -1,0 +1,30 @@
+#!/bin/bash
+# gcc wrapper that builds STATIC programs against the vendored notux musl
+# (musl/ next to the makefile). Use as CC for cmake/configure:
+#   CC=$PWD/tools/ladder/mcc ./configure ...
+# Needs kernel uapi headers (linux/, asm/, asm-generic/, drm/) from the host
+# in $KINC (default: ./build-ladder/kinc, created from /usr/include).
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+M="$ROOT/musl"
+KINC="${KINC:-$ROOT/build-ladder/kinc}"
+if [ ! -d "$KINC" ]; then
+  mkdir -p "$KINC"
+  ln -sfn /usr/include/linux "$KINC/linux"
+  ln -sfn /usr/include/asm-generic "$KINC/asm-generic"
+  ln -sfn /usr/include/x86_64-linux-gnu/asm "$KINC/asm"
+  [ -d /usr/include/drm ] && ln -sfn /usr/include/drm "$KINC/drm"
+fi
+INC="-isystem $KINC -nostdinc -isystem $M/include -isystem $(gcc -print-file-name=include)"
+LG="$(gcc -print-libgcc-file-name)"
+args=(); for a in "$@"; do case "$a" in -lm|-ldl|-lpthread|-lrt|-lc) ;; *) args+=("$a");; esac; done
+set -- "${args[@]}"
+link=1; partial=0; shared=0
+for a in "$@"; do case "$a" in -c|-E|-S|-M|-MM) link=0;; -r|-Wl,-r|-nostdlib\ -r) partial=1;; -shared) shared=1;; esac; done
+# relocatable (partial) link: no startfiles, no libraries
+if [ $link = 1 ] && [ $partial = 1 ]; then exec gcc -nostdlib "$@"; fi
+if [ $link = 1 ]; then
+  exec gcc -static -no-pie -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables $INC -nostdlib "$M/lib/crt1.o" "$M/lib/crti.o" "$@" -x none \
+    -Wl,--start-group "$M/lib/libc.a" "$M/lib/libm.a" "$LG" -Wl,--end-group "$M/lib/crtn.o"
+else
+  exec gcc -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables $INC "$@"
+fi

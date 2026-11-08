@@ -1,0 +1,512 @@
+KERNEL START
+Multiboot magic = 0x000000002BADB002
+Multiboot flags = 0x0000126F
+Multiboot mods_count = 0x00000001
+PMMI
+Reserve module 0x0000000000000000: 0x0000000000284000 - 0x000000000028B0E0
+EARLY MODULE0: 0x000000000000007F 0x0000000000000045 0x000000000000004C 0x0000000000000046
+PON
+VMMI
+SYSCALL: initialized
+FB: bootloader framebuffer
+AHCI: devices found = 0x00000001
+AHCI: Disk found, mounting xv6fs...
+ext2: root filesystem on disk 0
+ext2: /README read OK
+Module 0 start = 0x0000000000284000
+Module 0 end   = 0x000000000028B0E0
+Module 0 size  = 0x00000000000070E0
+Module ELF bytes: 0x000000000000007F 0x0000000000000045 0x000000000000004C 0x0000000000000046
+SCHEDULER: initialized
+PROCESS: created
+init PID = 0x0000000000000001
+ELF: loader entered
+ELF file size = 0x00000000000070E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040064B
+ELF: all PT_LOAD loaded
+Setting entry = 0x000000000040064B
+PIC1 Mask before STI: 00
+come to notux.
+
+This is an ext2 root filesystem (tools/mkext2root.sh).
+Layout:
+  /bin   executables
+  /etc   configuration
+  /lib   dynamic loader and libraries
+  /root  root's home directory
+  /mnt   ext2 test fixtures
+prestiELF: loader entered
+ELF file size = 0x0000000000002B40
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000004000BB
+ELF: all PT_LOAD loaded
+EXIT: process
+PROCESS: zombie
+EXIT: process
+PROCESS: zombie
+EXIT: process
+PROCESS: zombie
+EXIT: process
+PROCESS: zombie
+EXIT: process
+PROCESS: zombie
+EXIT: process
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000003080
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040052F
+ELF: all PT_LOAD loaded
+EXIT: process
+PROCESS: zombie
+EXIT: process
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000B728
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000F6D8
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000DF30
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000DF30
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000BD10
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000DA08
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+ENOSYS nr=9999
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000E708
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+PROCESS: zombie
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000AFF8
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+PROCESS: zombie
+PROCESS: zombie
+USER FAULT vec=14
+  rip=000000000040177e err=0000000000000006 rsp=00007ffffffefb80 cr2=0000700000000000
+PROCESS: zombie
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000DAA8
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000010D08
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000F1F0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000040102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000000A178
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000000102F
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000004368
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000010A0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000004460
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000010A0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+USER FAULT vec=14
+  rip=0000008000029f99 err=0000000000000006 rsp=00007ffffffd0000 cr2=00007ffffffcfff8
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000004320
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000001080
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+USER FAULT vec=14
+  rip=0000008000029fa7 err=0000000000000006 rsp=00007ffffffcfff0 cr2=00007ffffffcfff8
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x000000000004CE18
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000401EFB
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x000000000000A480
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000401AA6
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000008480
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000004018FD
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000000E9A
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000401BB0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000009BA9
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000409FD0
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000000DB2
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000401B00
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000000E62
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000401B60
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000041688
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x00000000000034D0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+ELF: loader entered
+ELF file size = 0x0000000000000DBA
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x0000000000401AD0
+ELF: all PT_LOAD loaded
+ELF: loader entered
+ELF file size = 0x00000000000B29E0
+ELF magic: 0x7F454C46
+ELF: magic OK
+ELF: ELF64 OK
+ELF machine = 0x000000000000003E
+ELF entry = 0x000000000007BF0E
+ELF: all PT_LOAD loaded
+PROCESS: zombie
+PROCESS: zombie

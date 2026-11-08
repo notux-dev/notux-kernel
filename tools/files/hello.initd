@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+# Minimal OpenRC service used by the notux test-suite.
+description="notux OpenRC smoke test"
+start() {
+	ebegin "Starting hello"
+	echo started > /tmp/hello.state
+	eend 0
+}
+stop() {
+	ebegin "Stopping hello"
+	echo stopped > /tmp/hello.state
+	eend 0
+}
